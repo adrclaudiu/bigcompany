@@ -1,0 +1,29 @@
+# BIG COMPANY Employees Hierarchy
+
+This project creates a hierarchy of employees and extracts some data based on the structure.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Testing](#testing)
+
+## Installation
+
+mvn clean install
+
+## Usage
+
+Input file Employees.csv is present under resources/input
+java -jar OrganizationalStructure-1.0-SNAPSHOT.jar
+
+## Features
+
+- Feature 1: Find all managers with salaries less than the average subordinates salaries + 20%.
+- Feature 2: Find all managers with salaries higher than the average subordinates salaries + 50%.
+- Feature 3: Find all employees with the reporting line higher than 4, excluding CEO.
+
+## Testing
+
+Upload Employees.csv depending on the usecase and check the output of the code execution

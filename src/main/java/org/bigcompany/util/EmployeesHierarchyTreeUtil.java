@@ -1,6 +1,5 @@
 package org.bigcompany.util;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.bigcompany.model.Employee;
 
 import java.util.ArrayList;
@@ -53,7 +52,8 @@ public class EmployeesHierarchyTreeUtil {
         Map<Long, Long> managerSalaryDifference = new HashMap<>();
         for (Map.Entry<Long, Employee> employeeEntry : employeesMap.entrySet()) {
             List<Employee> subordinates = getManagerSubordinates(employeeEntry.getKey(), employeesMap);
-            if (!CollectionUtils.isEmpty(subordinates)) {
+            // can use also CollectionUtils.isEmpty()
+            if (subordinates != null && subordinates.size() > 0) {
                 Double averageSalary = subordinates.stream().collect(Collectors.averagingLong(Employee::getSalary));
                 Long minimumManagerSalary = Long.valueOf((long) (averageSalary * 1.2));
                 if (employeeEntry.getValue().getSalary().compareTo(minimumManagerSalary) < 0) {
@@ -74,7 +74,8 @@ public class EmployeesHierarchyTreeUtil {
         Map<Long, Long> managerSalaryDifference = new HashMap<>();
         for (Map.Entry<Long, Employee> employeeEntry : employeesMap.entrySet()) {
             List<Employee> subordinates = getManagerSubordinates(employeeEntry.getKey(), employeesMap);
-            if (!CollectionUtils.isEmpty(subordinates)) {
+            // can use also CollectionUtils.isEmpty()
+            if (subordinates != null && subordinates.size() > 0) {
                 Double averageSalary = subordinates.stream().collect(Collectors.averagingLong(Employee::getSalary));
                 Long maximumManagerSalary = Long.valueOf((long) (averageSalary * 1.5));
                 if (employeeEntry.getValue().getSalary().compareTo(maximumManagerSalary) > 0) {
