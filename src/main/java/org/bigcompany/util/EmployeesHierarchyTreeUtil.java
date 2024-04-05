@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 public class EmployeesHierarchyTreeUtil {
 
+    public static final int MAX_REPORTING_LINE_DEPTH = 4;
+
     /**
      * Build Hierarchy, by populating the subordinates for each employee
      *
@@ -100,7 +102,7 @@ public class EmployeesHierarchyTreeUtil {
         // starting with depth -1 because we count only the managers between employee and CEO, without taking in consideration CEO
         for (Map.Entry<Long, Employee> employeeEntry : employeesMap.entrySet()) {
             Integer reportingLineDepth = findEmployeeReportingLineDepth(employeesHierarchy, employeeEntry.getKey(), -1);
-            if (reportingLineDepth > 4) {
+            if (reportingLineDepth > MAX_REPORTING_LINE_DEPTH) {
                 employeesWithLongReportingLine.put(employeeEntry.getKey(), reportingLineDepth);
             }
         }

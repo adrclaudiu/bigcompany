@@ -29,6 +29,7 @@ public class Main {
         // find employees with too long reporting line
         Map<Long, Integer> employeesWithLongReportingLine = employeesHierarchyTreeUtil.findEmployeesWithLongReportingLine(employeesHierarchy, employeesMap);
 
+        // print results
         for (Map.Entry<Long, Long> managerWithLowSalary : managersWithLowSalaries.entrySet()) {
             System.out.println("Manager " + managerWithLowSalary.getKey() + " has a low salary. It's expected to be " + managerWithLowSalary.getValue() + " higher.");
         }
