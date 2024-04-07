@@ -19,6 +19,7 @@ public class EmployeesHierarchyTreeUtil {
      * @param employeesMap  the map with all employees
      */
     public void buildEmployeesHierarchy(Employee manager, Map<Long, Employee> employeesMap) {
+
         List<Employee> managerSubordinates = getManagerSubordinates(manager.getId(), employeesMap);
         manager.setSubordinates(managerSubordinates);
         // recursively populate subordinates for each manager

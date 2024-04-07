@@ -1,10 +1,12 @@
 package org.bigcompany;
 
+import org.bigcompany.exception.CEONotFoundException;
 import org.bigcompany.model.Employee;
 import org.bigcompany.util.CsvReader;
 import org.bigcompany.util.EmployeesHierarchyTreeUtil;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class Main {
 
@@ -17,8 +19,13 @@ public class Main {
 
         // start building hierarchy from CEO
         EmployeesHierarchyTreeUtil employeesHierarchyTreeUtil = new EmployeesHierarchyTreeUtil();
-        Employee employeesHierarchy = employeesMap.values().stream().filter(employee -> employee.getManagerId() == null).findFirst().get();
-        employeesHierarchyTreeUtil.buildEmployeesHierarchy(employeesHierarchy, employeesMap);
+        Optional<Employee> employeesHierarchy = employeesMap.values().stream().filter(employee -> employee.getManagerId() == null).findFirst();
+        if (employeesHierarchy.isPresent()) {
+            employeesHierarchyTreeUtil.buildEmployeesHierarchy(employeesHierarchy.get(), employeesMap);
+        } else {
+            System.out.println("CEO not found. Stopping execution");
+            throw new CEONotFoundException("CEO not found");
+        }
 
         // find managers who earn less than they should (less than 20% of the average salary of subordinates)
         Map<Long, Long> managersWithLowSalaries = employeesHierarchyTreeUtil.findManagersWithLowSalary(employeesMap);
@@ -27,7 +34,7 @@ public class Main {
         Map<Long, Long> managersWithHighSalaries = employeesHierarchyTreeUtil.findManagersWithHighSalary(employeesMap);
 
         // find employees with too long reporting line
-        Map<Long, Integer> employeesWithLongReportingLine = employeesHierarchyTreeUtil.findEmployeesWithLongReportingLine(employeesHierarchy, employeesMap);
+        Map<Long, Integer> employeesWithLongReportingLine = employeesHierarchyTreeUtil.findEmployeesWithLongReportingLine(employeesHierarchy.get(), employeesMap);
 
         // print results
         for (Map.Entry<Long, Long> managerWithLowSalary : managersWithLowSalaries.entrySet()) {

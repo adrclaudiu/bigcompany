@@ -7,8 +7,12 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CsvReader {
+
+    Logger logger = Logger.getLogger(getClass().getName());
 
     /**
      * This method returns a Map of employee id and employee details
@@ -17,12 +21,13 @@ public class CsvReader {
      * @return          the map of employees
      */
     public Map<Long, Employee> readCsv(String filePath) throws FileNotFoundException {
+        logger.log(Level.INFO, () -> "Attempting to read csv from path: " + filePath);
         Map<Long, Employee> employeesMap = new HashMap<>();
 
         InputStream inputStream = CsvReader.class.getClassLoader().getResourceAsStream(filePath);
 
         if (inputStream == null) {
-            System.out.println("File " + filePath + " does not exist.");
+            logger.log(Level.WARNING, () -> "Something went wrong: " + "File " + filePath + " does not exist.");
             throw new FileNotFoundException(filePath);
         }
 
@@ -48,6 +53,8 @@ public class CsvReader {
                 employeesMap.put(id, employee);
             }
         }
+
+        logger.log(Level.INFO, () -> "Successfully read data.");
 
         return employeesMap;
     }
