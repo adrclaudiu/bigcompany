@@ -56,7 +56,7 @@ public class EmployeesHierarchyTreeUtil {
         for (Map.Entry<Long, Employee> employeeEntry : employeesMap.entrySet()) {
             List<Employee> subordinates = getManagerSubordinates(employeeEntry.getKey(), employeesMap);
             // can use also CollectionUtils.isEmpty()
-            if (subordinates != null && subordinates.size() > 0) {
+            if (subordinates != null && !subordinates.isEmpty()) {
                 Double averageSalary = subordinates.stream().collect(Collectors.averagingLong(Employee::getSalary));
                 Long minimumManagerSalary = Long.valueOf((long) (averageSalary * 1.2));
                 if (employeeEntry.getValue().getSalary().compareTo(minimumManagerSalary) < 0) {
@@ -78,7 +78,7 @@ public class EmployeesHierarchyTreeUtil {
         for (Map.Entry<Long, Employee> employeeEntry : employeesMap.entrySet()) {
             List<Employee> subordinates = getManagerSubordinates(employeeEntry.getKey(), employeesMap);
             // can use also CollectionUtils.isEmpty()
-            if (subordinates != null && subordinates.size() > 0) {
+            if (subordinates != null && !subordinates.isEmpty()) {
                 Double averageSalary = subordinates.stream().collect(Collectors.averagingLong(Employee::getSalary));
                 Long maximumManagerSalary = Long.valueOf((long) (averageSalary * 1.5));
                 if (employeeEntry.getValue().getSalary().compareTo(maximumManagerSalary) > 0) {
